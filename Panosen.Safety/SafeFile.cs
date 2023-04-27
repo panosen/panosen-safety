@@ -44,6 +44,8 @@ namespace Panosen.Safety
             File.WriteAllBytes(path, cipherBytes);
         }
 
+#if NET6_0
+
         /// <summary>
         /// 异步读取所有字节
         /// </summary>
@@ -73,6 +75,8 @@ namespace Panosen.Safety
             return File.WriteAllBytesAsync(path, cipherBytes, cancellationToken);
         }
 
+#endif
+
         /// <summary>
         /// 读取所有行
         /// </summary>
@@ -96,6 +100,8 @@ namespace Panosen.Safety
             var lines = File.ReadAllLines(path);
             return ToPlainLines(lines, encoding, secretKey);
         }
+
+#if NET6_0
 
         /// <summary>
         /// 异步读取所有行
@@ -123,6 +129,8 @@ namespace Panosen.Safety
             var lines = await File.ReadAllLinesAsync(path, cancellationToken);
             return ToPlainLines(lines, encoding, secretKey);
         }
+
+#endif
 
         /// <summary>
         /// 写入所有行
@@ -172,6 +180,8 @@ namespace Panosen.Safety
             File.WriteAllLines(path, cipherLines);
         }
 
+#if NET6_0
+
         /// <summary>
         /// 异步写入所有行
         /// </summary>
@@ -200,6 +210,7 @@ namespace Panosen.Safety
             await File.WriteAllLinesAsync(path, cipherLines, cancellationToken);
         }
 
+#endif
 
 
 
@@ -227,6 +238,8 @@ namespace Panosen.Safety
             return ToPlainText(cipherText, encoding, secretKey);
         }
 
+#if NET6_0
+
         /// <summary>
         /// 异步读取所有文本
         /// </summary>
@@ -253,6 +266,8 @@ namespace Panosen.Safety
             return ToPlainText(cipherText, encoding, secretKey);
         }
 
+#endif
+
         /// <summary>
         /// 写入读取所有文本
         /// </summary>
@@ -264,6 +279,8 @@ namespace Panosen.Safety
             var cipherText = ToCipherText(path, Encoding.UTF8, secretKey);
             File.WriteAllText(path, cipherText);
         }
+
+#if NET6_0
 
         /// <summary>
         /// 写入读取所有文本
@@ -278,6 +295,8 @@ namespace Panosen.Safety
             var cipherText = ToCipherText(text, Encoding.UTF8, secretKey);
             await File.WriteAllTextAsync(path, cipherText, cancellationToken);
         }
+
+#endif
 
         private static string[] ToPlainLines(string[] lines, Encoding encoding, SecretKey secretKey)
         {

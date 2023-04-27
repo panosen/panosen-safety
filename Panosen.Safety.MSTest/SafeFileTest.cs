@@ -44,6 +44,8 @@ namespace Panosen.Safety.MSTest
                 SafeFile.WriteAllText("c" + i, text, secretKey);
                 TextMap["c" + i] = text;
             }
+
+#if NET6_0
             for (int i = 0; i < 6; i++)
             {
                 byte[] bytes = TestHelper.GenBytes();
@@ -63,6 +65,8 @@ namespace Panosen.Safety.MSTest
                 TextMap["f" + i] = text;
             }
 
+#endif
+
             for (int i = 0; i < 3; i++)
             {
                 var bytes = SafeFile.ReadAllBytes("a" + i, secretKey);
@@ -78,6 +82,8 @@ namespace Panosen.Safety.MSTest
                 var text = SafeFile.ReadAllText("c" + i, secretKey);
                 TestHelper.Same(text, TextMap["c" + i]);
             }
+
+#if NET6_0
             for (int i = 0; i < 6; i++)
             {
                 var bytes = await SafeFile.ReadAllBytesAsync("d" + i, secretKey);
@@ -93,6 +99,8 @@ namespace Panosen.Safety.MSTest
                 var text = await SafeFile.ReadAllTextAsync("f" + i, secretKey);
                 TestHelper.Same(text, TextMap["f" + i]);
             }
+
+#endif
 
         }
     }
